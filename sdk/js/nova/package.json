@@ -1,0 +1,7 @@
+{
+  "name": "nova",
+  "version": "2024.0.0",
+  "description": "Enables access to AI tools for the Nova Hackathon",
+  "main": "index.js",
+  "author": "ScottyLabs"
+}
