@@ -3,7 +3,9 @@
 ## How To Use This Repository
 
 This repository is intended to roughly outline a proposed design for the SDKs for each platform for Nova. In the [`sdk`](/sdk) directory, you will find a directory for each platform we are considering supporting ([python](/sdk/python), [javascript](/sdk/javascript), [swift](/sdk/swift), and [kotlin](/sdk/kotlin)). Each of these include the rough design for the API for that platform, including documentation in that language's style.
+
 The [`examples`](/examples) directory includes examples of how the SDKs might be used in each language.
+
 There is also an [`openapi.yaml`](/openapi.yaml) file that is a rough proposal for what features will be needed on the server end to support the SDKs. This is not a final design, but a rough outline of what the server will need to support.
 
 *Note: This is **not** a final design and is meant to be discussed and modified. It should not be treated as a bible because I'm not that cracked at API design. Please critique: it's how this becomes the best it can be.*
@@ -18,31 +20,38 @@ Also, API design should align with the typical design of the language it is impl
 
 ### Python
 
-Python doesn't support function overloading, so the basics of Python API design apply.
-Calling functions on objects to enable different functionality is a good way to approach progressive disclosure.
-Functions in general should have reasonable variable defaults so they can be called without worrying about all the capabilities.
-Making function documentation easy to understand will be essential, since anyone, regardless of how much or how little of the functionality they are trying to use, will see all the options. This is great for discoverability and exploration, but making it clear that you don't need to fill in every variable is essential.
-Parameter typing is a must. Obviously, Python doesn't enforce it, but having the hints from PyCharm or otherwise will be incredibly useful, especially for beginners.
+* Does not support function overloading
+* Functions should be called on objects to enable different functionality
+* Functions should have reasonable variable defaults
+* Function documentation should be easy to understand, especially since all options will be visible regardless of how much of the functionality is being used
+* Parameter typing is a must. Editor hints are incredibly useful, especially for beginners
 
 ### JavaScript/TypeScript
 
-Javascript doesn't support function overloading.
-Options objects, which allow additional optional arguments, might be a good way to pull this off. These should be well typed for TypeScript users, and well documented for JavaScript users (unless we aren't supporting JS at all).
-Simple React (or whatever framework we provide templates for) components could also be incredibly helpful in potentially hiding some of the complicated reactive parts of displaying chat text as it comes in so people can focus on building apps, but this is probably less necessary than having a good API for writing non-UI code.
+* Does not support function overloading
+* Options objects should be used to enable additional optional arguments
+  * These should be well typed for TypeScript users and well documented for JavaScript users
+* Simple React (or other framework) components could be really helpful. They hide some of the complexity of complicated reactivity in displaying chat text as it comes in, gradually rendering images, etc., allowing people to focus on building apps
+  * This is probably less necessary than having a good API for writing non-UI code, but could be a nice-to-have
 
 ### Swift
 
-One of Swift's core tenants is the idea of progressive disclosure (if you want, watch the WWDC session [here](https://www.youtube.com/watch?v=-3dct9nMM2g)). Function overloads and named variables are how this is accomplished.
-Calling functions on an object to enable functionality is a good design.
-Functions should take in only the parameters they need and provide sane defaults. Xcode automatically makes the options look nice and like distinct options so as not to overwhelm a user. If two or more options must go together, write a simple wrapper function with those specific functions. This works because Swift supports function overloading.
-Simple SwiftUI components could be helpful for solving complicated state stuff, but the framework is pretty good at making these things simple, so it might be fine. If we have time, some components would definitely be appreciated.
+* Supports function overloading
+  * Progressive disclosure of complexity is a core tenant of Swift (see [here](https://www.youtube.com/watch?v=-3dct9nMM2g) if you have time)
+* Functions should be called on objects to enable different functionality
+* Functions should have reasonable variable defaults
+* Xcode automatically makes the options look nice and like distinct options so as not to overwhelm a user
+  * If two or more options must go together, write a simple wrapper function with those specific functions
+* Simple SwiftUI components could be helpful for solving complicated state stuff, but the framework is pretty good at making these things simple, so it might be fine. If we have time, some components would definitely be appreciated
 
 ### Kotlin
 
-Kotlin is very similar to Swift in this regard, because it allows for function overloads and named parameters.
-Android Studio will not hide parameters that have default values, so this means all the values will be visible, with their defaults shown. This might be overwhelming, but could help with exploration and discovery.
-Distinct sets of parameters should be separated into different wrapper functions to minimize the number of discrete options at the call site.
-Creating Jetpack Compose components, similar to SwiftUI, could be very helpful, but shouldn't be considered essential.
+* Supports function overloading
+* Functions should be called on objects to enable different functionality
+* Functions should have reasonable variable defaults
+* All options will be visible regardless of how much of the functionality is being used
+  * Distinct sets of parameters should be separated into different wrapper functions to minimize the number of discrete options at the call site
+* Creating Jetpack Compose components, similar to SwiftUI, could be very helpful, but shouldn't be considered essential
 
 ## Functionality
 
