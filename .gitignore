@@ -83,6 +83,7 @@ Temporary Items
 
 # Package Files #
 *.jar
+!gradle-wrapper.jar
 *.war
 *.nar
 *.ear
@@ -243,7 +244,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+sdk/python/**/lib/ # Specified to not conflict with Kotlin
 lib64/
 parts/
 sdist/
